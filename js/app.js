@@ -18,11 +18,11 @@ var Enemy = function() {
 
 // Initialize enemy
 Enemy.prototype.init = function() {
-    // assign random starting position on x axis
+    // Assign random starting position on x axis
     this.x = -blockWidth - getRandomInt(4) * blockWidth;
-    // assign random lane on y axis
+    // Assign random lane on y axis
     this.y = getRandomInt(3) * blockHeight + blockHeight * 0.75;
-    // assign random speed
+    // Assign random speed
     this.speed = 100 + 10 * getRandomInt(40);
 };
 
@@ -30,10 +30,10 @@ Enemy.prototype.init = function() {
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
     if(this.x > canvasWidth) {
-        // if the enemy goes out of canvas, re-initialize it
+        // If the enemy goes out of canvas, re-initialize it
         this.init();
     } else {
-        // otherwise update its position
+        // Otherwise update its position
         this.x += this.speed * dt;
     }
 };
@@ -53,11 +53,11 @@ var Player = function() {
 
 // Initialize player
 Player.prototype.init = function() {
-    // position on x axis
+    // Position on x axis
     this.x = canvasWidth / 2 - blockWidth / 2;
-    // position on y axis
+    // Position on y axis
     this.y = canvasHeight - blockHeight * 1.25;
-    // hide the winning modal
+    // Hide the winning modal
     $('.modal').modal('hide');
 }
 
@@ -80,7 +80,7 @@ Player.prototype.handleInput = function(key) {
 // Update the player's position, required method for game
 // Parameter: dt, a time delta between ticks
 Player.prototype.update = function(dt) {
-    // check for collision with enemies
+    // Check for collision with enemies
     for(const enemy of allEnemies) {
         if(player.y == enemy.y && player.x < enemy.x + 0.5 * blockWidth && 
                 player.x > enemy.x - 0.5 * blockWidth) {
@@ -88,7 +88,7 @@ Player.prototype.update = function(dt) {
         }
     }
 
-    // check for winning the game
+    // Check for winning the game
     if(player.y < 0) {
         $('.modal').modal();
     }
@@ -99,12 +99,12 @@ Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-// all enemy objects
+// All enemy objects
 let allEnemies = [];
-// the player object
+// The player object
 let player = new Player();
 
-// create the enemies
+// Create the enemies
 while(allEnemies.length < enemiesCount) {
     allEnemies.push(new Enemy());
 }
