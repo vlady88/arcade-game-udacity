@@ -1,6 +1,8 @@
+// Block dimensions
 const blockWidth = 101;
 const blockHeight = 83;
 
+// Canvas dimensions
 const canvasWidth = 5 * blockWidth;
 const canvasHeight = 6 * blockHeight;
 
@@ -28,8 +30,10 @@ Enemy.prototype.init = function() {
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
     if(this.x > canvasWidth) {
+        // if the enemy goes out of canvas, re-initialize it
         this.init();
     } else {
+        // otherwise update its position
         this.x += this.speed * dt;
     }
 };
@@ -57,6 +61,7 @@ Player.prototype.init = function() {
     $('.modal').modal('hide');
 }
 
+// Move the player on the board and prevent it from exiting the canvas
 Player.prototype.handleInput = function(key) {
     if(key == 'up' && this.y > 0) {
         this.y -= blockHeight;
@@ -94,12 +99,12 @@ Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-// Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
+// all enemy objects
 let allEnemies = [];
+// the player object
 let player = new Player();
 
+// create the enemies
 while(allEnemies.length < enemiesCount) {
     allEnemies.push(new Enemy());
 }
@@ -117,6 +122,7 @@ document.addEventListener('keyup', function(e) {
     player.handleInput(allowedKeys[e.keyCode]);
 });
 
+// Computes a random integer between 0 and max
 function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
 }

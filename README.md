@@ -1,20 +1,40 @@
-# Classic Arcade Game Clone Project
+# Arcade Game Project
 
-## Table of Contents
+## Dependencies
 
-- [Instructions](#instructions)
-- [Contributing](#contributing)
+* Bootstrap - used for displaying modals.
 
-## Instructions
+* jQuery - required by Bootstrap.
 
-Use this [rubric](https://review.udacity.com/#!/rubrics/15/view) for self-checking your submission.
+* Popper - required by Bootstrap.
 
-Make sure the functions you write are **object-oriented** - either class functions (like `Player` and `Enemy`) or class prototype functions such as `Enemy.prototype.checkCollisions`. Also make sure that the keyword `this` is used appropriately within your class and class prototype functions to refer to the object the function is called upon.
+## Implementation Details
 
-Your **README.md** file should be updated with instructions on both how to 1. Run and 2. Play your arcade game.
+* The following global variables are used:
+    - `blockWidth / blockHeight` - block dimensions.
+    - `canvasWidth / canvasHeight` - canvas dimensions.
+    - `enemiesCount` - the number of enemies; increasing this number will increase the difficulty of the game.
+    - `allEnemies` - array with all Enemy objects.
+    - `player` - the Player object.
 
-For detailed instructions on how to get started, check out this [guide](https://docs.google.com/document/d/1v01aScPjSWCCWQLIpFqvg3-vXLH2e8_SZQKC8jNO0Dc/pub?embedded=true).
+* Player initialization - the method `Player.init()` initializes the player. This is called upon page load, when the player gets hit by an enemy or when the "Play again" button is clicked after finishing a game. `Player.init()` does the following:
+    - Sets the player at the bottom of the canvas on the vertical axis.
+    - Sets the player at the middle of the canvas on the horizontal axis.
 
-## Contributing
+* Player movement - the methods `Player.handleInput()` and `Player.update()` are used to move the player:
+    - `Player.handleInput()` - move the player on the board and prevent it from exiting the canvas.
+    - `Player.update()` - checks for collitions with the enemies and restart the player's position if it gets hit; upon reaching the water, a winning message is displayed, along with the option to play again.
 
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
+* Enemy initialization - the method `Enemy.init()` initializes an enemy object. This is called upon page load or when an enemy exits the canvas. `Enemy.init()` does the following:
+    - Sets the enemy on a random lane on the vertical axis.
+    - Sets the enemy on a random position at the right of the canvas on the horizontal axis.
+    - Sets a random speed for the enemy.
+
+* Enemy movement - the method `Enemy.update()` is used for moving the enemy and it does the following:
+    - If the enemy goes out of canvas, then re-initialize it.
+    - If the enemy is on the canvas, then it moves it to the right.
+
+## Running the game
+
+To run the game, just open `index.html` in a browser. Upon winning the game, click on `Play again` to start a new game.
+
