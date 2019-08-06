@@ -82,14 +82,14 @@ Player.prototype.handleInput = function(key) {
 Player.prototype.update = function(dt) {
     // Check for collision with enemies
     for(const enemy of allEnemies) {
-        if(player.y == enemy.y && player.x < enemy.x + 0.5 * blockWidth && 
-                player.x > enemy.x - 0.5 * blockWidth) {
-            player.init();
+        if(this.y == enemy.y && this.x < enemy.x + 0.5 * blockWidth && 
+            this.x > enemy.x - 0.5 * blockWidth) {
+                this.init();
         }
     }
 
     // Check for winning the game
-    if(player.y < 0) {
+    if(this.y < 0) {
         $('.modal').modal();
     }
 };
